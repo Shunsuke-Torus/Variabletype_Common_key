@@ -4,12 +4,10 @@ Created on Mon Jun 14 22:35:07 2021
 
 @author: Shun
 
-insert 英字から数字を制作
-
 https://qiita.com/R_olldIce/items/3e2c80baa6d5e6f3abe9#1-pow_mod
 """
 import sympy as sp
-import itertools
+#import itertools
 
        
 #def calculate(P,C,A,A_inverse)
@@ -19,8 +17,6 @@ def main():
         print("平文P、暗号文C、暗号化鍵A、復号化鍵A^-1の中であるものを「1」と代入してください。\n1つずつ入力します。注意して！")
         a = "平文P"#mode調整
         b = "暗号文C"
-        c = "暗号化鍵A"
-        d = "復号化鍵A^-1"
         
         judge = int(input("以前or持っている暗号化鍵を利用するなら:2\n以前or持っている復号化鍵を利用するなら:1\n以外なら:0 \n judge:"))
         if judge == 2:
@@ -36,7 +32,7 @@ def main():
         
         C,P,P_C_len= None,None,None
         while(1):
-                mode = (int(input(F"鍵閲覧:1,暗号化:2,復号化:3,終了:4 \n input:")))
+                mode = (int(input("鍵閲覧:1,暗号化:2,復号化:3,終了:4 \n input:")))
                 if mode == 1:
                     print(F"A≡{A}mod{mod} \nA^-1≡{A_inverse}mod{mod}")
                 elif mode == 2 :
@@ -62,7 +58,7 @@ def main():
                     raise ValueError
       
     except  ValueError:
-            print("入力値が不正です: \n case1 数字入力が文字入力になっている \t ")
+            print("入力値が不正です ")
   
 def key(mod):
     try:
