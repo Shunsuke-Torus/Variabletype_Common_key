@@ -20,9 +20,11 @@ def main():
         
         judge = int(input("以前or持っている暗号化鍵を利用するなら:2\n以前or持っている復号化鍵を利用するなら:1\n以外なら:0 \n judge:"))
         if judge == 2:
+            print("基本２次元配列のため\trow=n,column=2と記載する")
             A = key_P_C_insert()
             A_inverse = A.inv_mod(mod)  
         elif judge == 1:
+            print("基本２次元配列のため\trow=n,column=2と記載する")
             A_inverse = key_P_C_insert()
             A = A_inverse.inv_mod(mod)
         elif judge == 0:
@@ -76,13 +78,13 @@ def key_P_C_insert():
     print(F"A={A}")
     for i in range (row):#012
         for j in range (column):#01
-            A[i,j] = int(input(F" A={i},{j}\n入力:")) 
+            A[i,j] = int(input(F"{A[i,j]}\tA={i},{j}\n入力:")) 
     return A
 
 
 def insert_chr(mode,P_C,P_C_len)->chr:
     #row,column = 0
-    function = int(input(F"{mode}を持っていますか。以前の文を持っている:1持っていない:0 \n function:"))
+    function = int(input(F"{mode}を持っている:1{mode}を持っていない:0 \n function:"))
     try:
         if  function == 1:
             if P_C == None:
@@ -91,8 +93,13 @@ def insert_chr(mode,P_C,P_C_len)->chr:
             else:
                 P_C = char_to_int(P_C)#P_C_lenは前段階で保存されているので大丈夫
         elif function == 0:
-            P_C = (input("文字列を入力　95種類　大文字　小文字　数字 etc \n"))#A　便宜上
-            P_C_len = len(P_C)
+            P_C = (input("文字列を入力　95種類　大文字　小文字　数字 etc \n>>"))#A　便宜上
+            P_C_judge = int(input("文字数を入力します。外部からの確認用:1,内部:0\n>>"))
+            if P_C_judge == 0:
+                P_C_len = len(P_C)
+            else:
+                P_C_len = int(input("文字数を入力してください \n文字数:"))
+            
             P_C= char_to_int(P_C)
             #入力　文字列
         else:#他は考慮しない
