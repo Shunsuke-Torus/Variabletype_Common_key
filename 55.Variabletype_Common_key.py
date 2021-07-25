@@ -14,7 +14,6 @@ import sympy as sp
 def main():           
     try:
         mod = 95 #int(input("mod="))
-        print("平文P、暗号文C、暗号化鍵A、復号化鍵A^-1の中であるものを「1」と代入してください。\n1つずつ入力します。注意して！")
         a = "平文P"#mode調整
         b = "暗号文C"
         
@@ -29,8 +28,8 @@ def main():
             A = A_inverse.inv_mod(mod)
         elif judge == 0:
             A,A_inverse = key(mod)
-        #else :
-            #raise ValueError
+        else:
+            raise ValueError
         
         C,P,P_C_len= None,None,None
         while(1):
@@ -61,31 +60,13 @@ def main():
       
     except  ValueError:
             print("入力値が不正です ")
-  
-def key(mod):
-    try:
-        A = sp.randMatrix(2,2,0,mod)
-        A_inverse = A.inv_mod(mod)
-    except sp.matrices.common.NonInvertibleMatrixError:
-        A,A_inverse = key(mod)
-    return A,A_inverse  
-
-def key_P_C_insert():
-    row = int(input("行row="))
-    column = int(input("列column="))
-    a = row * column
-    A = sp.Matrix(row,column,range(a))
-    print(F"A={A}")
-    for i in range (row):#012
-        for j in range (column):#01
-            A[i,j] = int(input(F"{A[i,j]}\tA={i},{j}\n入力:")) 
-    return A
 
 
 def insert_chr(mode,P_C,P_C_len)->chr:
     #row,column = 0
     function = int(input(F"{mode}を持っている:1{mode}を持っていない:0 \n function:"))
     try:
+        
         if  function == 1:
             if P_C == None:
                 P_C = key_P_C_insert()
@@ -97,8 +78,10 @@ def insert_chr(mode,P_C,P_C_len)->chr:
             P_C_judge = int(input("文字数を入力します。外部からの確認用:1,内部:0\n>>"))
             if P_C_judge == 0:
                 P_C_len = len(P_C)
-            else:
+            elif P_C_judge == 1:
                 P_C_len = int(input("文字数を入力してください \n文字数:"))
+            else:
+                raise ValueError
             
             P_C= char_to_int(P_C)
             #入力　文字列
@@ -142,6 +125,25 @@ def int_to_char(P_C: int,) ->chr: ##２次元配列→1次元配列+数字から
             box += 1 #１個ずつ入力
     char_list = "".join(char_list)#"",""を結合する
     return char_list
+
+def key(mod):
+    try:
+        A = sp.randMatrix(2,2,0,mod)
+        A_inverse = A.inv_mod(mod)
+    except sp.matrices.common.NonInvertibleMatrixError:
+        A,A_inverse = key(mod)
+    return A,A_inverse  
+
+def key_P_C_insert():
+    row = int(input("行row="))
+    column = int(input("列column="))
+    a = row * column
+    A = sp.Matrix(row,column,range(a))
+    print(F"A={A}")
+    for i in range (row):#012
+        for j in range (column):#01
+            A[i,j] = int(input(F"{A[i,j]}\tA={i},{j}\n入力:")) 
+    return A
 
 if __name__ == "__main__":
     main()
